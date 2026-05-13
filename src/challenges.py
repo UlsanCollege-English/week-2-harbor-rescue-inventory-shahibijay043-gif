@@ -1,61 +1,65 @@
-"""Week 2 starter code for Harbor Rescue Inventory."""
+"""
+Week 2 — Harbor Rescue Inventory
+"""
 
 from __future__ import annotations
 
 
 def mission_snapshot(items: list[object]) -> tuple[object | None, object | None]:
-    """Return the first and last items in the list.
-
-    Return (None, None) if the list is empty.
-    """
-    if not items:
+    """Return the first and last items in the list."""
+    
+    if len(items) == 0:
         return (None, None)
-    return (items[0], items[-1])
+
+    first_item = items[0]
+    last_item = items[-1]
+
+    return (first_item, last_item)
 
 
 def cargo_window(items: list[object], start: int, size: int) -> list[object]:
-    """Return up to ``size`` items starting at index ``start``.
+    """Return a portion of the list based on start and size."""
 
-    Return an empty list if ``start`` is out of range or if ``size <= 0``.
-    """
-    if size <= 0 or start < 0 or start >= len(items):
+    if size <= 0:
         return []
-    return items[start:start + size]
+
+    if start < 0 or start >= len(items):
+        return []
+
+    end = start + size
+
+    return items[start:end]
 
 
 def first_supply_index(items: list[object], target: object) -> int:
-    """Return the index of the first occurrence of ``target``.
+    """Return the first index of the target item."""
 
-    Return -1 if the target is not found.
-    Do not use ``items.index(...)`` for this challenge.
-    """
-    for i in range(len(items)):
-        if items[i] == target:
-            return i
+    for index, item in enumerate(items):
+        if item == target:
+            return index
+
     return -1
 
 
 def supply_report(items: list[object], target: object) -> tuple[int, int]:
-    """Return (count, first_index) for ``target`` in ``items``.
+    """Return count and first index of the target item."""
 
-    Return (0, -1) if the target does not appear.
-    """
     count = 0
     first_index = -1
 
-    for i in range(len(items)):
-        if items[i] == target:
+    for index, item in enumerate(items):
+        if item == target:
             count += 1
+
             if first_index == -1:
-                first_index = i
+                first_index = index
 
     return (count, first_index)
 
 
 def priority_load(items: list[object], urgent_item: object) -> list[object]:
-    """Return a new list with ``urgent_item`` added at the front.
+    """Return a new list with urgent item at the beginning."""
 
-    Do not mutate the original input list.
-    This is a stretch challenge.
-    """
-    return [urgent_item] + items
+    updated_list = [urgent_item] + items
+
+    return updated_list
